@@ -1,5 +1,8 @@
 import React from "react";
-const skills = ["JavaScript", "React", "Node.js", "Go", "Java", "MongoDB", "PostgreSQL", "Tailwind CSS"];
+const skills = ["JAVA", "JAVASCRIPT", "SQL", "SPRING BOOT", "NODEJS", "RESTFUL APIS", "REACT", "REDUX", "JSX" ,"HTML" ,"CSS", 
+  "MICROSERVICES DOMAIN DRIVEN DESIGN(DDD)","DISTRIBUTED SYSTEMS",
+ "AWS (S3, CloudWatch, Cognito) AZURE KUBERNETES DOCKER JENKINS ",
+  "POSTGRESSQL", "MONGODB", "SPLUNK ","NEW RELIC"," GRAFANA"];
 
 const Skills = () => (
   <section id="skills" className="max-w-3xl mx-auto">

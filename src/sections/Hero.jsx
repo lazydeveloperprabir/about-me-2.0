@@ -28,14 +28,7 @@ const Hero = () => (
       <p className="text-lg mt-4 text-gray-200">
         Full-Stack Developer | AWS Certified architect | Tech Enthusiast
       </p>
-      <div className="mt-6 flex justify-center border-white gap-6">
-        <a href="https://github.com/lazydeveloperprabir?tab=repositories" target="_blank" rel="noreferrer">
-          <img src="/github-500.png" alt="GitHub" className="w-8 h-8 hover:scale-110 transition" />
-        </a>
-        <a href="https://www.linkedin.com/in/prabir-padhy/" target="_blank" rel="noreferrer">
-          <img src="/linkedin-2.svg" alt="LinkedIn" className="w-8 h-8 hover:scale-110 transition" />
-        </a>
-      </div>
+      
     </div>
   </section>
 );
