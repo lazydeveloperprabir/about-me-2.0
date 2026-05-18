@@ -9,6 +9,16 @@ export const profile = {
   github: "https://github.com/lazydeveloperprabir",
   yearsOfExperience: "14+",
 
+  introAvatar: {
+    enabled: true,
+    iframeSrc: "/intro-avatar.html",
+    narrationSrc: "/intro-narration.mp3",
+    narrationVoice: "en-US-AndrewMultilingualNeural",
+    durationSeconds: 60,
+    showOncePerSession: false,
+    subtitle: "1-minute introduction · neural voice",
+  },
+
   about: [
     "I am a software engineering leader and backend architect with over 14 years of experience designing and delivering scalable, resilient systems. I specialize in distributed architecture, event-driven solutions, and microservices—building platforms that scale horizontally with high availability and fault tolerance.",
     "As a full-stack engineer and technical lead, I have guided teams through architecture reviews, security implementations, and performance optimization across enterprise domains including retail, healthcare, aerospace, and agriculture. I bring deep expertise in data structures and algorithms, and I am passionate about mentoring engineers and solving complex technical challenges.",

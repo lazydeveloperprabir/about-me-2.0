@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prabir Padhy — Introduction</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        background: radial-gradient(ellipse at top, #1e293b 0%, #020617 70%);
+        color: #e2e8f0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        overflow: hidden;
+      }
+
+      .avatar-wrap {
+        position: relative;
+        margin-bottom: 2rem;
+      }
+
+      .avatar-ring {
+        position: absolute;
+        inset: -8px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        border-top-color: #3b82f6;
+        border-right-color: #60a5fa;
+        animation: spin 3s linear infinite;
+      }
+
+      .avatar-ring-2 {
+        inset: -16px;
+        border-top-color: #6366f1;
+        animation-direction: reverse;
+        animation-duration: 5s;
+        opacity: 0.5;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .avatar {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #334155;
+        box-shadow: 0 0 40px rgba(59, 130, 246, 0.35);
+        animation: pulse 2.5s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 40px rgba(59, 130, 246, 0.35);
+        }
+        50% {
+          box-shadow: 0 0 60px rgba(59, 130, 246, 0.55);
+        }
+      }
+
+      .speaking .avatar {
+        animation: pulse 1.2s ease-in-out infinite;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        padding: 0.35rem 0.85rem;
+        border-radius: 999px;
+        background: rgba(59, 130, 246, 0.15);
+        border: 1px solid rgba(59, 130, 246, 0.35);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #93c5fd;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #3b82f6;
+        animation: blink 1s ease-in-out infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 0.35rem;
+      }
+
+      .role {
+        text-align: center;
+        color: #94a3b8;
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .caption-box {
+        max-width: 640px;
+        width: 100%;
+        min-height: 120px;
+        padding: 1.25rem 1.5rem;
+        border-radius: 1rem;
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid #334155;
+        line-height: 1.65;
+        font-size: 1rem;
+        color: #cbd5e1;
+      }
+
+      .caption-box .highlight {
+        color: #f8fafc;
+        font-weight: 500;
+      }
+
+      .controls {
+        margin-top: 1.25rem;
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      button {
+        cursor: pointer;
+        border: 1px solid #475569;
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        transition: background 0.2s, border-color 0.2s;
+      }
+
+      button:hover {
+        background: #334155;
+        border-color: #64748b;
+      }
+
+      button.primary {
+        background: #2563eb;
+        border-color: #2563eb;
+      }
+
+      button.primary:hover {
+        background: #3b82f6;
+      }
+
+      .status {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        color: #64748b;
+        text-align: center;
+      }
+
+      #narration {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    
+      <div class="avatar-wrap" id="avatarWrap">
+        <div class="avatar-ring"></div>
+        <div class="avatar-ring avatar-ring-2"></div>
+        <img class="avatar" src="/profile.jpg" alt="Prabir Padhy" />
+      </div>
+
+    <div class="badge" id="liveBadge">
+      <span class="dot"></span>
+      <span id="badgeText">Introduction</span>
+    </div>
+
+    <h1>Prabir Padhy</h1>
+    <p class="role">Software Engineering Lead · AWS Certified Solutions Architect</p>
+
+    <div class="caption-box" id="caption" aria-live="polite">
+      Press play to hear a brief overview of my experience and expertise.
+    </div>
+
+    <div class="controls">
+      <button type="button" class="primary" id="playBtn">▶ Play introduction</button>
+      <button type="button" id="muteBtn" style="display: none">🔇 Mute</button>
+    </div>
+
+    <audio id="narration" preload="auto" playsinline>
+      <source src="/intro-narration.mp3" type="audio/mpeg" />
+    </audio>
+
+    <p class="status" id="status"></p>
+
+    <script>
+      const NARRATION_SRC = "/intro-narration.mp3";
+      const INTRO_MAX_MS = 60000;
+
+      const scriptParts = [
+        "Hello! I'm Prabir Padhy, a Software Engineering Lead and AWS Certified Solutions Architect based in Bengaluru, India.",
+        "With over fourteen years of experience, I design distributed systems, event-driven platforms, and cloud-native microservices across retail, healthcare, aerospace, and agriculture.",
+        "I'm currently Technical Lead at Cargill. Previously I led engineering at Tesco and Cardinal Health on large-scale delivery and enterprise platforms.",
+        "At GE Aerospace and Cargill Digital Labs, I built cloud solutions adopted globally—including platforms used by over one hundred thirty airlines.",
+        "Thank you for visiting my portfolio. Explore my experience, projects, and resume below. I look forward to connecting with you!",
+      ];
+
+      const captionEl = document.getElementById("caption");
+      const statusEl = document.getElementById("status");
+      const playBtn = document.getElementById("playBtn");
+      const muteBtn = document.getElementById("muteBtn");
+      const badgeText = document.getElementById("badgeText");
+      const avatarWrap = document.getElementById("avatarWrap");
+      const audio = document.getElementById("narration");
+
+      let startedAt = null;
+      let maxCloseTimer = null;
+      let useCaptionsOnly = false;
+
+      function notifyParentComplete() {
+        try {
+          window.parent.postMessage({ type: "INTRO_COMPLETE" }, "*");
+        } catch (_) {}
+      }
+
+      function scheduleMaxClose() {
+        if (maxCloseTimer) clearTimeout(maxCloseTimer);
+        const elapsed = startedAt ? Date.now() - startedAt : 0;
+        const remaining = Math.max(0, INTRO_MAX_MS - elapsed);
+        maxCloseTimer = setTimeout(notifyParentComplete, remaining);
+      }
+
+      function setSpeaking(active) {
+        avatarWrap.classList.toggle("speaking", active);
+        badgeText.textContent = active ? "Speaking" : "Introduction";
+      }
+
+      function showCaptionPart(index) {
+        if (index >= scriptParts.length) return;
+        captionEl.innerHTML =
+          '<span class="highlight">' + scriptParts[index] + "</span>";
+      }
+
+      function syncCaptionToAudio() {
+        if (useCaptionsOnly || !audio.duration) return;
+        const ratio = audio.currentTime / audio.duration;
+        const index = Math.min(
+          scriptParts.length - 1,
+          Math.floor(ratio * scriptParts.length)
+        );
+        showCaptionPart(index);
+      }
+
+      function startCaptionsOnly() {
+        useCaptionsOnly = true;
+        startedAt = Date.now();
+        showCaptionPart(0);
+        let i = 0;
+        const interval = setInterval(() => {
+          i += 1;
+          if (i < scriptParts.length) showCaptionPart(i);
+        }, INTRO_MAX_MS / scriptParts.length);
+        setTimeout(() => clearInterval(interval), INTRO_MAX_MS);
+        scheduleMaxClose();
+        playBtn.style.display = "none";
+        statusEl.textContent =
+          "Narration file missing. Run: npm run intro-audio";
+      }
+
+      function stopNarration() {
+        audio.pause();
+        setSpeaking(false);
+      }
+
+      function playIntro() {
+        startedAt = Date.now();
+        scheduleMaxClose();
+
+        audio.addEventListener("timeupdate", syncCaptionToAudio);
+        audio.addEventListener("play", () => {
+          setSpeaking(true);
+          playBtn.style.display = "none";
+          muteBtn.style.display = "inline-block";
+          statusEl.textContent = "Neural voice · Andrew (multilingual)";
+        });
+        audio.addEventListener("pause", () => {
+          if (!audio.ended) setSpeaking(false);
+        });
+        audio.addEventListener("ended", () => {
+          setSpeaking(false);
+          muteBtn.style.display = "none";
+          statusEl.textContent =
+            "Introduction complete. Returning to portfolio…";
+          notifyParentComplete();
+        });
+        audio.addEventListener("error", () => {
+          startCaptionsOnly();
+        });
+
+        audio.src = NARRATION_SRC;
+        audio.load();
+        const playPromise = audio.play();
+
+        if (playPromise !== undefined) {
+          playPromise.catch(() => startCaptionsOnly());
+        }
+      }
+
+      playBtn.addEventListener("click", playIntro);
+
+      muteBtn.addEventListener("click", () => {
+        audio.muted = !audio.muted;
+        muteBtn.textContent = audio.muted ? "🔊 Unmute" : "🔇 Mute";
+      });
+
+      window.addEventListener("load", () => {
+        setTimeout(playIntro, 500);
+      });
+    </script>
+  </body>
+</html>

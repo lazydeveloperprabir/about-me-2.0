@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "resume": "node scripts/generate-resume.mjs"
+    "resume": "node scripts/generate-resume.mjs",
+    "intro-audio": "node scripts/generate-intro-audio.mjs"
   },
   "dependencies": {
     "aos": "^2.3.4",
