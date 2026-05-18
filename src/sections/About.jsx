@@ -5,7 +5,7 @@ import { profile } from "../data/profile";
 const About = () => (
   <section
     id="about"
-    className="mx-auto max-w-5xl scroll-mt-24"
+    className="w-full scroll-mt-24"
   >
     <h2 className="section-heading">About</h2>
     <div className="flex flex-col items-start gap-12 md:flex-row">

@@ -25,8 +25,8 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 antialiased">
       <Header />
-      <main className="mx-auto max-w-6xl space-y-28 px-4 py-12 md:px-8 md:py-16">
-        <Hero />
+      <Hero />
+      <main className="w-full space-y-20 px-4 py-12 sm:px-6 lg:px-10 xl:px-14 lg:py-14">
         <About />
         <Experience />
         <Skills />

@@ -3,13 +3,13 @@ import { FaQuoteLeft, FaLinkedinIn } from "react-icons/fa";
 import { profile } from "../data/profile";
 
 const Testimonials = () => (
-  <section id="testimonials" className="mx-auto max-w-5xl scroll-mt-24">
+  <section id="testimonials" className="w-full scroll-mt-24">
     <h2 className="section-heading text-center">Testimonials</h2>
     <p className="mb-10 text-center text-slate-400">
       What colleagues say about working together.
     </p>
 
-    <div className="mx-auto max-w-3xl">
+    <div className="w-full">
       {profile.testimonials.map((item, index) => (
           <article
             key={`${item.author}-${index}`}

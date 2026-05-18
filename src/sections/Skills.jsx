@@ -2,9 +2,9 @@ import React from "react";
 import { profile } from "../data/profile";
 
 const Skills = () => (
-  <section id="skills" className="mx-auto max-w-5xl scroll-mt-24">
+  <section id="skills" className="w-full scroll-mt-24">
     <h2 className="section-heading">Skills</h2>
-    <div className="grid gap-6 sm:grid-cols-2">
+    <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
       {profile.skillCategories.map((category) => (
         <div
           key={category.name}

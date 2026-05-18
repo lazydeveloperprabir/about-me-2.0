@@ -23,7 +23,7 @@ const links = [
 const Contact = () => (
   <section
     id="contact"
-    className="mx-auto max-w-2xl scroll-mt-24 text-center"
+    className="w-full scroll-mt-24 text-center"
     data-aos="fade-up"
   >
     <h2 className="section-heading">Contact</h2>

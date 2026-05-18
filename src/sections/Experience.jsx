@@ -2,7 +2,7 @@ import React from "react";
 import { profile } from "../data/profile";
 
 const Experience = () => (
-  <section id="experience" className="max-w-4xl mx-auto scroll-mt-24">
+  <section id="experience" className="w-full scroll-mt-24">
     <h2 className="section-heading">Experience</h2>
     <div className="relative border-l border-slate-700 ml-3 space-y-8">
       {profile.experience.map((job) => (

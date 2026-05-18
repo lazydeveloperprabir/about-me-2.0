@@ -6,11 +6,11 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 const Hero = () => (
   <section
     id="hero"
-    className="relative flex min-h-screen items-center justify-center scroll-mt-24 bg-cover bg-center bg-no-repeat"
+    className="relative flex min-h-screen w-full items-center justify-center scroll-mt-24 bg-cover bg-center bg-no-repeat"
     style={{ backgroundImage: 'url("/banner.jpg")' }}
   >
     <div className="absolute inset-0 bg-slate-950/75" />
-    <div className="relative z-10 mx-auto max-w-3xl px-4 text-center">
+    <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center sm:px-6">
       <motion.img
         src="/profile.jpg"
         alt={profile.name}
