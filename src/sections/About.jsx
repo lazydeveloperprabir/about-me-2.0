@@ -1,45 +1,78 @@
-// src/components/About.jsx
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
+import { profile } from "../data/profile";
 
 const About = () => (
   <section
     id="about"
-    className="max-w-5xl mx-auto px-4 py-16 flex flex-col md:flex-row items-center gap-10"
+    className="mx-auto max-w-5xl scroll-mt-24"
   >
-    <motion.img
-      src="/about.jpg"
-      alt="About Me"
-      className="w-64 h-64 object-cover rounded-xl shadow-lg"
-      initial={{ x: -50, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-    />
-    <motion.div
-      initial={{ x: 50, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="text-left"
-    >
-      <h2 className="text-3xl font-semibold mb-4">About Me</h2>
-      <p className="text-gray-300 text-lg leading-relaxed">
-      I am an Innovative and accomplished Engineering leader with 13 years of diverse experience in software Development 
-      lifecycle as an Architect and Java Full Stack Developer. Specialized in crafting cutting-edge solutions in Distributed 
-      Systems and Event-Driven Architecture, with a focus on leveraging AWS for scalable and secure applications. Proficient in 
-      building efficient Microservices architectures using Java and Node.js, complemented by a deep 
-      understanding of Data Structures & Algorithms. A proven leader with a track record of providing technical guidance, 
-      conducting architecture reviews, code reviews and implementing solutions that enhance project efficiency and quality. 
-      Skilled in integrating new technologies, optimizing workflows, and reducing manual processes. Recognized for reducing IT expenses, 
-      improving cybersecurity, and implementing Agile methodologies resulting in 30% reduction in project delivery time.
-      </p>
-      <a
-        href="/resume.pdf"
-        download
-        className="inline-block mt-6 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
+    <h2 className="section-heading">About</h2>
+    <div className="flex flex-col items-start gap-12 md:flex-row">
+      <motion.img
+        src="/about.jpg"
+        alt={profile.name}
+        className="h-72 w-full max-w-xs shrink-0 rounded-2xl object-cover shadow-xl ring-1 ring-slate-700 md:w-72"
+        initial={{ x: -40, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      />
+      <motion.div
+        initial={{ x: 40, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="flex-1"
       >
-        Download Resume
-      </a>
-    </motion.div>
+        {profile.about.map((paragraph, i) => (
+          <p key={i} className="mb-4 text-lg leading-relaxed text-slate-300">
+            {paragraph}
+          </p>
+        ))}
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {profile.expertise.map((area) => (
+                <div
+                  key={area.title}
+                  className="rounded-xl border border-slate-700/80 bg-slate-800/40 p-4"
+                >
+                  <h3 className="mb-2 text-sm font-semibold text-blue-400">
+                    {area.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-slate-400">
+                    {area.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+        <div className="mt-8 flex flex-wrap gap-6 border-t border-slate-700/80 pt-8">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
+              Education
+            </p>
+            <p className="mt-1 font-medium text-white">{profile.education.degree}</p>
+            <p className="text-sm text-slate-400">{profile.education.field}</p>
+            <p className="text-sm text-slate-500">
+              {profile.education.school} · {profile.education.period}
+            </p>
+          </div>
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
+              Certifications
+            </p>
+            <ul className="mt-1 space-y-1">
+              {profile.certifications.map((cert) => (
+                <li key={cert.name} className="text-sm text-slate-300">
+                  {cert.name}
+                  <span className="text-slate-500"> — {cert.issuer}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </motion.div>
+    </div>
   </section>
 );
 

@@ -1,17 +1,29 @@
 import React from "react";
-const skills = ["JAVA", "JAVASCRIPT", "SQL", "SPRING BOOT", "NODEJS", "RESTFUL APIS", "REACT", "REDUX", "JSX" ,"HTML" ,"CSS", 
-  "MICROSERVICES DOMAIN DRIVEN DESIGN(DDD)","DISTRIBUTED SYSTEMS",
- "AWS (S3, CloudWatch, Cognito) AZURE KUBERNETES DOCKER JENKINS ",
-  "POSTGRESSQL", "MONGODB", "SPLUNK ","NEW RELIC"," GRAFANA"];
+import { profile } from "../data/profile";
 
 const Skills = () => (
-  <section id="skills" className="max-w-3xl mx-auto">
-    <h2 className="text-3xl font-semibold mb-4">Skills</h2>
-    <div className="flex flex-wrap gap-3">
-      {skills.map(skill => (
-        <span key={skill} className="bg-gray-700 px-4 py-2 rounded-lg text-sm">
-          {skill}
-        </span>
+  <section id="skills" className="mx-auto max-w-5xl scroll-mt-24">
+    <h2 className="section-heading">Skills</h2>
+    <div className="grid gap-6 sm:grid-cols-2">
+      {profile.skillCategories.map((category) => (
+        <div
+          key={category.name}
+          className="rounded-xl border border-slate-700/80 bg-slate-800/30 p-5"
+        >
+          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-blue-400">
+            {category.name}
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {category.skills.map((skill) => (
+              <span
+                key={skill}
+                className="rounded-md bg-slate-700/60 px-3 py-1.5 text-sm text-slate-200"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
       ))}
     </div>
   </section>

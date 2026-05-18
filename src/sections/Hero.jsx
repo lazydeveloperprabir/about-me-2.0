@@ -1,49 +1,74 @@
-
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
+import { profile } from "../data/profile";
+import { HiOutlineLocationMarker } from "react-icons/hi";
 
 const Hero = () => (
   <section
     id="hero"
-    className="relative text-center w-full h-screen bg-cover bg-center bg-no-repeat"
+    className="relative flex min-h-screen items-center justify-center scroll-mt-24 bg-cover bg-center bg-no-repeat"
     style={{ backgroundImage: 'url("/banner.jpg")' }}
   >
-    <div className="bg-black bg-opacity-60 absolute inset-0"></div>
-    <div className="relative z-10 text-center">
+    <div className="absolute inset-0 bg-slate-950/75" />
+    <div className="relative z-10 mx-auto max-w-3xl px-4 text-center">
       <motion.img
         src="/profile.jpg"
-        alt="Profile"
-        className="w-64 h-64 rounded-full mx-auto mb-6 border-4 border-white shadow-lg"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.8 }}
+        alt={profile.name}
+        className="mx-auto mb-8 h-48 w-48 rounded-full border-4 border-slate-700 object-cover shadow-2xl ring-2 ring-blue-500/30 md:h-56 md:w-56"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6 }}
       />
-      <motion.h2
-        initial={{ y: -30, opacity: 0 }}
+      <motion.p
+        initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.3 }}
-        className="text-4xl font-bold text-white flex justify-center items-center gap-2"
+        transition={{ delay: 0.15 }}
+        className="mb-2 text-sm font-medium uppercase tracking-widest text-blue-400"
       >
-        Hi, I'm Prabir
-        <motion.span
-          role="img"
-          aria-label="waving hand"
-          className="inline-block origin-bottom-right"
-          animate={{
-            rotate: [0, 20, -10, 20, -5, 0],
-          }}
-          transition={{
-            duration: 1.8,
-            repeat: Infinity,
-            repeatDelay: 2,
-          }}
+        {profile.title}
+      </motion.p>
+      <motion.h1
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.25 }}
+        className="text-4xl font-bold tracking-tight text-white md:text-5xl"
+      >
+        {profile.name}
+      </motion.h1>
+      <motion.p
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.35 }}
+        className="mt-4 text-lg leading-relaxed text-slate-300 md:text-xl"
+      >
+        {profile.tagline}
+      </motion.p>
+      <motion.p
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.45 }}
+        className="mt-3 flex items-center justify-center gap-1.5 text-sm text-slate-400"
+      >
+        <HiOutlineLocationMarker className="text-blue-400" />
+        {profile.location}
+      </motion.p>
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.55 }}
+        className="mt-10 flex flex-wrap justify-center gap-4"
+      >
+        <a href="#contact" className="btn-primary">
+          Get in Touch
+        </a>
+        <a
+          href="/resume.pdf"
+          download
+          className="btn-secondary"
         >
-          👋
-        </motion.span>
-      </motion.h2>
-      <p className="text-lg mt-4 text-gray-200">
-        Full-Stack Developer | AWS Certified architect | Tech Enthusiast
-      </p>
+          Download Resume
+        </a>
+      </motion.div>
     </div>
   </section>
 );
