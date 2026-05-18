@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { profile } from "../data/profile";
 import { HiOutlineLocationMarker } from "react-icons/hi";
+import { ease } from "../utils/motion";
 
 const Hero = () => (
   <section
@@ -9,7 +10,12 @@ const Hero = () => (
     className="relative flex min-h-screen w-full items-center justify-center scroll-mt-24 bg-cover bg-center bg-no-repeat"
     style={{ backgroundImage: 'url("/banner.jpg")' }}
   >
-    <div className="absolute inset-0 bg-slate-950/75" />
+    <motion.div
+      className="absolute inset-0 bg-slate-950/75"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    />
     <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center sm:px-6">
       <motion.img
         src="/profile.jpg"
@@ -17,12 +23,12 @@ const Hero = () => (
         className="mx-auto mb-8 h-48 w-48 rounded-full border-4 border-slate-700 object-cover shadow-2xl ring-2 ring-blue-500/30 md:h-56 md:w-56"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.6, ease }}
       />
       <motion.p
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.15 }}
+        transition={{ delay: 0.15, duration: 0.5, ease }}
         className="mb-2 text-sm font-medium uppercase tracking-widest text-blue-400"
       >
         {profile.title}
@@ -30,7 +36,7 @@ const Hero = () => (
       <motion.h1
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.25 }}
+        transition={{ delay: 0.25, duration: 0.5, ease }}
         className="text-4xl font-bold tracking-tight text-white md:text-5xl"
       >
         {profile.name}
@@ -38,7 +44,7 @@ const Hero = () => (
       <motion.p
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.35 }}
+        transition={{ delay: 0.35, duration: 0.5, ease }}
         className="mt-4 text-lg leading-relaxed text-slate-300 md:text-xl"
       >
         {profile.tagline}
@@ -46,7 +52,7 @@ const Hero = () => (
       <motion.p
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.45 }}
+        transition={{ delay: 0.45, duration: 0.5, ease }}
         className="mt-3 flex items-center justify-center gap-1.5 text-sm text-slate-400"
       >
         <HiOutlineLocationMarker className="text-blue-400" />
@@ -55,7 +61,7 @@ const Hero = () => (
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.55 }}
+        transition={{ delay: 0.55, duration: 0.5, ease }}
         className="mt-10 flex flex-wrap justify-center gap-4"
       >
         <a href="#contact" className="btn-primary">

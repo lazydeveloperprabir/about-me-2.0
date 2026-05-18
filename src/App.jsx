@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import React from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -13,15 +11,6 @@ import Testimonials from "./sections/Testimonials";
 import Contact from "./sections/Contact";
 
 function App() {
-  useEffect(() => {
-    AOS.init({
-      duration: 700,
-      once: true,
-      easing: "ease-out-cubic",
-      offset: 40,
-    });
-  }, []);
-
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 antialiased">
       <Header />
