@@ -11,7 +11,7 @@ export const profile = {
 
   introAvatar: {
     enabled: true,
-    iframeSrc: "/intro-avatar.html",
+    iframeSrc: "/intro-avatar.html?audio=/intro-narration.mp3",
     narrationSrc: "/intro-narration.mp3",
     narrationVoice: "en-US-AndrewMultilingualNeural",
     durationSeconds: 60,

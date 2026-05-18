@@ -213,14 +213,14 @@
       <button type="button" id="muteBtn" style="display: none">🔇 Mute</button>
     </div>
 
-    <audio id="narration" preload="auto" playsinline>
-      <source src="/intro-narration.mp3" type="audio/mpeg" />
-    </audio>
+    <audio id="narration" preload="auto" playsinline></audio>
 
     <p class="status" id="status"></p>
 
     <script>
-      const NARRATION_SRC = "/intro-narration.mp3";
+      const params = new URLSearchParams(window.location.search);
+      const NARRATION_SRC =
+        params.get("audio") || "/intro-narration.mp3";
       const INTRO_MAX_MS = 60000;
 
       const scriptParts = [
@@ -242,6 +242,8 @@
       let startedAt = null;
       let maxCloseTimer = null;
       let useCaptionsOnly = false;
+      let narrationReady = false;
+      let playbackStarted = false;
 
       function notifyParentComplete() {
         try {
@@ -277,9 +279,32 @@
         showCaptionPart(index);
       }
 
-      function startCaptionsOnly() {
+      function waitForAudioReady() {
+        return new Promise((resolve) => {
+          const onReady = () => {
+            cleanup();
+            resolve(true);
+          };
+          const onFail = () => {
+            cleanup();
+            resolve(false);
+          };
+          const cleanup = () => {
+            audio.removeEventListener("canplaythrough", onReady);
+            audio.removeEventListener("error", onFail);
+            clearTimeout(timeout);
+          };
+          const timeout = setTimeout(onFail, 10000);
+          audio.addEventListener("canplaythrough", onReady);
+          audio.addEventListener("error", onFail);
+          loadNarration();
+        });
+      }
+
+      function startCaptionsOnly(message) {
         useCaptionsOnly = true;
-        startedAt = Date.now();
+        if (!startedAt) startedAt = Date.now();
+        scheduleMaxClose();
         showCaptionPart(0);
         let i = 0;
         const interval = setInterval(() => {
@@ -287,28 +312,26 @@
           if (i < scriptParts.length) showCaptionPart(i);
         }, INTRO_MAX_MS / scriptParts.length);
         setTimeout(() => clearInterval(interval), INTRO_MAX_MS);
-        scheduleMaxClose();
+        playBtn.style.display = "inline-block";
+        playBtn.textContent = "▶ Play introduction";
+        statusEl.textContent = message;
+      }
+
+      function onPlaybackStarted() {
+        playbackStarted = true;
+        if (!startedAt) {
+          startedAt = Date.now();
+          scheduleMaxClose();
+        }
+        setSpeaking(true);
         playBtn.style.display = "none";
-        statusEl.textContent =
-          "Narration file missing. Run: npm run intro-audio";
+        muteBtn.style.display = "inline-block";
+        statusEl.textContent = "Neural voice · Andrew (multilingual)";
       }
 
-      function stopNarration() {
-        audio.pause();
-        setSpeaking(false);
-      }
-
-      function playIntro() {
-        startedAt = Date.now();
-        scheduleMaxClose();
-
+      function setupAudioListeners() {
         audio.addEventListener("timeupdate", syncCaptionToAudio);
-        audio.addEventListener("play", () => {
-          setSpeaking(true);
-          playBtn.style.display = "none";
-          muteBtn.style.display = "inline-block";
-          statusEl.textContent = "Neural voice · Andrew (multilingual)";
-        });
+        audio.addEventListener("play", onPlaybackStarted);
         audio.addEventListener("pause", () => {
           if (!audio.ended) setSpeaking(false);
         });
@@ -320,27 +343,80 @@
           notifyParentComplete();
         });
         audio.addEventListener("error", () => {
-          startCaptionsOnly();
+          startCaptionsOnly(
+            "Could not load narration. Run: npm run intro-audio"
+          );
         });
+        window.addEventListener("message", (event) => {
+          if (event.data?.type === "INTRO_PLAY") {
+            playIntro(true);
+          }
+        });
+      }
 
+      function loadNarration() {
         audio.src = NARRATION_SRC;
         audio.load();
-        const playPromise = audio.play();
+      }
 
-        if (playPromise !== undefined) {
-          playPromise.catch(() => startCaptionsOnly());
+      async function playIntro(fromUserGesture) {
+        if (!narrationReady) {
+          statusEl.textContent = "Loading narration…";
+          const ready = await waitForAudioReady();
+          if (!ready) {
+            startCaptionsOnly(
+              "Narration file missing. Run: npm run intro-audio"
+            );
+            return;
+          }
+          narrationReady = true;
+        }
+
+        if (playbackStarted) {
+          audio.play().catch(() => {});
+          return;
+        }
+
+        try {
+          await audio.play();
+        } catch (err) {
+          if (!fromUserGesture) {
+            playBtn.style.display = "inline-block";
+            statusEl.textContent =
+              "Click Play below to start the introduction (browser audio policy).";
+            captionEl.textContent =
+              "Your browser requires a click before playing audio.";
+            return;
+          }
+          startCaptionsOnly(
+            "Unable to play audio. Try clicking Play again or refresh the page."
+          );
         }
       }
 
-      playBtn.addEventListener("click", playIntro);
+      playBtn.addEventListener("click", () => playIntro(true));
 
       muteBtn.addEventListener("click", () => {
         audio.muted = !audio.muted;
         muteBtn.textContent = audio.muted ? "🔊 Unmute" : "🔇 Mute";
       });
 
+      async function init() {
+        setupAudioListeners();
+        statusEl.textContent = "Loading voice narration…";
+        const ready = await waitForAudioReady();
+        if (!ready) {
+          startCaptionsOnly(
+            "Narration file missing. Run: npm run intro-audio"
+          );
+          return;
+        }
+        narrationReady = true;
+        playIntro(false);
+      }
+
       window.addEventListener("load", () => {
-        setTimeout(playIntro, 500);
+        setTimeout(init, 300);
       });
     </script>
   </body>

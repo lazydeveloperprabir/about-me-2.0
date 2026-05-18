@@ -13,6 +13,7 @@ const IntroAvatarOverlay = ({ onClose }) => {
   const [closing, setClosing] = useState(false);
   const timerRef = useRef(null);
   const closedRef = useRef(false);
+  const iframeRef = useRef(null);
 
   const close = useCallback(() => {
     if (closedRef.current) return;
@@ -99,12 +100,21 @@ const IntroAvatarOverlay = ({ onClose }) => {
             </div>
           </div>
 
-          <div className="relative min-h-0 flex-1">
+          <div
+            className="relative min-h-0 flex-1"
+            onClick={() => {
+              iframeRef.current?.contentWindow?.postMessage(
+                { type: "INTRO_PLAY" },
+                "*"
+              );
+            }}
+          >
             <iframe
+              ref={iframeRef}
               src={introAvatar.iframeSrc}
               title={`${profile.name} introduction`}
               className="h-full w-full border-0"
-              allow="autoplay; microphone; camera"
+              allow="autoplay"
               allowFullScreen
             />
           </div>
